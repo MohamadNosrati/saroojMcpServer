@@ -22,6 +22,7 @@ export const mcpHandler = async (req: Request, res: Response) => {
     const mcpServer = createMcpServer();
 
     await mcpServer.connect(transport as any);
+    
 
     transport.onclose = () => {
       if (transport?.sessionId) {
