@@ -8,6 +8,5 @@ export const getAllProjectsInfo = async () => {
   const res = await axiosInstance.get<IBaseResponse<IProjectInfo[]>>(
     projectRoutes.getProjectsInfo(),
   );
-  console.log("res",res?.data?.data)
   return res?.data?.data;
 };
