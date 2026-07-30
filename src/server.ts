@@ -1,13 +1,20 @@
-import { Server } from "@modelcontextprotocol/sdk/server/index.js";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp";
 
-export const server = new Server(
-  {
-    name: "sarooj-mcp",
+import { app } from "./index.js";
+import { registerProjectsInfoTool } from "./tools/getProjectsInfo.js";
+
+export function createMcpServer() {
+  const server = new McpServer({
+    name: "sarooj",
     version: "1.0.0",
-  },
-  {
-    capabilities: {
-      tools: {},
-    },
-  },
-);
+  });
+
+  registerProjectsInfoTool(server);
+
+  return server;
+}
+app.listen(Number(process.env.PORT), () => {
+  console.log(
+    `MCP HTTP Server listening on ${process.env.BASEURL}:${process.env.PORT}`,
+  );
+});
