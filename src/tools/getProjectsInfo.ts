@@ -38,18 +38,19 @@ export const registerProjectsInfoTool = (mcpServer: McpServer) => {
     {
       title: TOOLTITLE,
       description: TOOLDESCRIPTION,
-      inputSchema: z.object({}),
-
+      inputSchema: z.object({
+        language: z.enum(["en", "fa"]),
+      }).describe("Natural language search query about Sarooj company projects info"),
       outputSchema: z.object({
         projects: z.array(
           z.object({
             id: z.string(),
-            title: z.string(),
-            description: z.string(),
-            area: z.number(),
-            alt: z.string(),
-            address: z.string(),
-            artitectureStyle: z.string(),
+            title: z.string().optional(),
+            description: z.string().optional(),
+            area: z.number().optional(),
+            alt: z.string().optional(),
+            address: z.string().optional(),
+            artitectureStyle: z.string().optional(),
           }),
         ),
       }),
@@ -75,8 +76,8 @@ export const registerProjectsInfoTool = (mcpServer: McpServer) => {
         ],
       },
     },
-    async () => {
-      const data = await getAllProjectsInfo();
+    async ({ language }) => {
+      const data = await getAllProjectsInfo(language);
       return {
         content: [
           {

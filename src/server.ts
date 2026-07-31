@@ -2,6 +2,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 
 import { app } from "./index.js";
 import { registerProjectsInfoTool } from "./tools/getProjectsInfo.js";
+import registerTematesInfoTool from "./tools/getTeamsInfo.js";
 
 export function createMcpServer() {
   const server = new McpServer({
@@ -10,6 +11,7 @@ export function createMcpServer() {
   });
 
   registerProjectsInfoTool(server);
+  registerTematesInfoTool(server);
 
   return server;
 }
